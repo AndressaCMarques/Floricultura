@@ -17,19 +17,14 @@ namespace Floricultura
         string nome;
         double preco;
         int rega;
-        List<string> porte = new List<string>();
-        enum luminosidade
-        {
-            SolPleno,
-            MeiaSombra,
-            Sombra
-        }
+        List<int> quantidadePorPorte;
+
         bool toxicidade;
         public Planta()
         {
-            porte.Add("P");
-            porte.Add("M");
-            porte.Add("G");
+            //porte.Add("P");
+            // porte.Add("M");
+            //porte.Add("G");
         } //string nome, double preco, int rega
 
         //tipo retorno vai ser uma classe, nesse caso planta. Ela passa ser um objeto. Vamos ter todas as informações, seja ela string, bool, double... tudo dentro de Planta.
@@ -44,6 +39,17 @@ namespace Floricultura
             plantaAtualizar.preco = ValorPlanta(plantaAtualizar.nome);
 
             plantaAtualizar.toxicidade = PlantaToxica(plantaAtualizar.nome, plantaAtualizar.preco);
+
+            plantaAtualizar.rega = RegasPlanta(plantaAtualizar.nome);
+
+            plantaAtualizar.quantidadePorPorte = QuantidadePortePlanta();
+
+            Console.WriteLine($"\nA quantidade na ordem pequeno, médio, grande é:");
+
+            foreach (int porte in plantaAtualizar.quantidadePorPorte)
+            {
+                Console.WriteLine($"\nA quantidade é {porte}");
+            }
 
             //List<string> regaDoDia = PlantasParaRegar();
 
@@ -81,7 +87,7 @@ namespace Floricultura
             return nomeDaPlanta;
         }
 
-        public List<string> PlantasParaRegar() 
+        public List<string> PlantasParaRegar()
         {
             Console.WriteLine("\nvamos regas as plantas:");
 
@@ -106,7 +112,7 @@ namespace Floricultura
             return valorDaPlanta;
         }
 
-        public bool PlantaToxica(string nomePlanta, double valorDaPlanta) 
+        public bool PlantaToxica(string nomePlanta, double valorDaPlanta)
         {
             Console.WriteLine("\nA planta é tóxica? Responda \"sim\" ou \"não\"");
             string plantaToxica = Console.ReadLine();//o que o usuario respondeu
@@ -124,16 +130,63 @@ namespace Floricultura
             }
             else
             {
-                Console.WriteLine("\n Erro. Digite novamente:");
+                Console.WriteLine("\n Erro, escrever da maneira que foi solicitado.");
             }
 
 
             return plantaToxicidade;
+
+        }
+        public int RegasPlanta(string nomePlanta)
+        {
+            Console.WriteLine("\nDigite o número de vezes que a planta deverá ser regada em uma semana:");
+            int numeroDeRegas = Int32.Parse(Console.ReadLine());
+            Console.WriteLine($"\nA planta {nomePlanta} precisa ser regada {numeroDeRegas} vezes na semana.");
+
+            return numeroDeRegas;
+
         }
 
+        public List<int> QuantidadePortePlanta()
+        {
+            List<int> quantidadeTamanhoPlanta = new List<int>();
+
+            Console.WriteLine("\nDigite a quantidade da planta na ordem: pequeno, médio ou grande");
+
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine("\nQuantas dessa planta gostaria de adicionar?");
+                int quantidadePlantas = Int32.Parse(Console.ReadLine());
+
+                quantidadeTamanhoPlanta.Add(quantidadePlantas);
+
+            }
+            return quantidadeTamanhoPlanta;
+
+
+        }
+        /*public static void Luminosidade()
+       {
+           List<Part> luminosidade = new luminosidade<Part>();
+
+           parts.Add(new Part() { PartName = "crank arm", PartId = 1234 });
+           parts.Add(new Part() { PartName = "chain ring", PartId = 1334 });
+           parts.Add(new Part() { PartName = "regular seat", PartId = 1434 });
+           parts.Add(new Part() { PartName = "banana seat", PartId = 1444 });
+           parts.Add(new Part() { PartName = "cassette", PartId = 1534 });
+           parts.Add(new Part() { PartName = "shift lever", PartId = 1634 });
+
+
+
+
+
+
+
+       }
+        */
+
+
+
+
     }
-
-
-
-
 }
